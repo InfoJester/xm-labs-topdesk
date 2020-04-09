@@ -17,7 +17,10 @@ These are arranged out of the box in an integration that you can choose to use a
 * xMatters account - If you don't have one, [get one](https://www.xmatters.com)!
 
 # Files
-* [TopDesk.zip](TopDesk.zip) - The xMatters workflow zip for TOPdesk.
+* [TopDesk.zip](TopDesk.zip) - The xMatters workflow zip for TOPdesk
+* [xmatters_icon.png](xmatters_icon.png) - An icon that works well as a user picture in TOPdesk
+* [xMatters_-_First_Line_Incident_WebHook_-_v1.0.json](xMatters_-_First_Line_Incident_WebHook_-_v1.0.json) - An importable TOPdesk Action Sequence
+* [xMatters_-_Second_Line_Incident_WebHook_-_v1.0.json](xMatters_-_Second_Line_Incident_WebHook_-_v1.0.json) - An importable TOPdesk Action Sequence
 
 
 # How it works
@@ -61,15 +64,12 @@ One you have your user setup get an **Application Key** for it ***how?***.  You'
 
 1. In the **Authentication** section you'll see yourself listed. If you're happy for the flow to run as you this can be left like this, for a production release I'd recommend creating a TOPdesk user for the flow to run as.  To have the flow run as a different xMatters user select that user here.  Make sure the user has sender permission on the from in this workflow.
 
-1. Copy the URL in the **Initiation** section and keep it for future reference, you'll need it in **TOPdesk set up #?**.  Please note that this URL has a key that denotes the user that will run the flow, so make any changes in the **Authentication** section first, and then copy this URL.
-<img src="media/HTTP Trigger Settings.png">
+1. Copy the URL in the **Initiation** section and keep it for future reference, you'll need it in **TOPdesk set up #?**.  Please note that this URL has a key that denotes the user that will run the flow, so make any changes in the **Authentication** section first, and then copy this URL. <img src="media/HTTP Trigger Settings.png">
 
-1. Back on the canvas select **Constants** from the **Components** menu (top right).  We need to tell the integration where xMatters is so that it can create deep links to xMatters events to be put in TOPdesk actions.  In the Constant **xMatters Instance** change the **Value** to the hostname of your xMatters instance,  this will be something like   *mycompanyname.xmatters.com*
-<img src="media/Constant.png">
+1. Back on the canvas select **Constants** from the **Components** menu (top right).  We need to tell the integration where xMatters is so that it can create deep links to xMatters events to be put in TOPdesk actions.  In the Constant **xMatters Instance** change the **Value** to the hostname of your xMatters instance,  this will be something like   *mycompanyname.xmatters.com* <img src="media/Constant.png">
 
 1. Again in the **Components** menu back on the canvas, now select **Endpoints**
-There is one endpoint here which is your TOPdesk instance.  I recommend creating an xMatters account in TOPdesk which will make all the updates to tickets, see **TOPdesk User setup**.  Once the account is created create an App Key for it.  In the endpoint here add your TOPdesk URL, username of the account and the App Key as the password.
-<img src="media/TOPdesk Endpoint.png">
+There is one endpoint here which is your TOPdesk instance.  I recommend creating an xMatters account in TOPdesk which will make all the updates to tickets, see **TOPdesk User setup**.  Once the account is created create an App Key for it.  In the endpoint here add your TOPdesk URL, username of the account and the App Key as the password. <img src="media/TOPdesk Endpoint.png">
 
 
 
@@ -78,7 +78,7 @@ Action Sequences tell TOPdesk how to instruct xMatters that there is an importan
 
 1. In the Action Explorer in TOPdesk, create a new **First Line Call**, **Action Sequence** in TOPdesk.
 
-1. Click **Import** and import the settings from [xMatters - First Line Incident WebHook - v1.0.json](xMatters - First Line Incident WebHook - v1.0.json)
+1. Click **Import** and import the settings from [xMatters_-_First_Line_Incident_WebHook_-_v1.0.json](xMatters_-_First_Line_Incident_WebHook_-_v1.0.json)
 
 1. The action needs to get extra deatils about the incident from the TOPdesk API so we need to fill in some details in the veriables section to help it:
 
@@ -91,7 +91,7 @@ Action Sequences tell TOPdesk how to instruct xMatters that there is an importan
 
 1. Click save
 
-1. Now create a new **Second Line Call**, **Action Sequence** and do it all again with [xMatters - Second Line Incident WebHook - v1.0.json](xMatters - Second Line Incident WebHook - v1.0.json). Use the same xMatters Trigger URL.
+1. Now create a new **Second Line Call**, **Action Sequence** and do it all again with [xMatters_-_Second_Line_Incident_WebHook_-_v1.0.json](xMatters_-_Second_Line_Incident_WebHook_-_v1.0.json). Use the same xMatters Trigger URL.
 
 ## TOPdesk Event set up(s)
 
@@ -113,6 +113,7 @@ For ***Edit card*** event types add **Edit Specifications** :
 For ***all*** events, link to the Action Sequences you created above.
 
 I don't make it much more complicated than that.  Let xMatters deal with validating the Incident Status is one you're sending events for or the current assignee is one that can get xMatters notifications.
+
 <img src="media/TOPdesk Event.png">
 
 

@@ -1,0 +1,58 @@
+{
+    "formatVersion": "2.7",
+    "exportDate": 1586450447794,
+    "actionSequence": {
+        "name": "xMatters - Incident WebHook - v1.0",
+        "description": "Send Events to the xMatters flow",
+        "structureName": "incident1",
+        "configuration": {
+            "variables": [
+                {
+                    "name": "TOPdesk_Domain",
+                    "value": ""
+                },
+                {
+                    "name": "TOPdesk_User",
+                    "value": ""
+                },
+                {
+                    "name": "TOPdesk_ApiKey",
+                    "value": ""
+                }
+            ],
+            "mappingDefinitions": [],
+            "steps": [
+                {
+                    "name": "Call_Retrieval",
+                    "method": "GET",
+                    "url": "https://${_variables.TOPdesk_Domain}/tas/api/incidents/id/${unid}",
+                    "headers": [
+                        {
+                            "name": "Authorization",
+                            "value": "Basic ${_base64(_variables.TOPdesk_User + ':' + _variables.TOPdesk_ApiKey)}"
+                        }
+                    ],
+                    "escapeBodyValues": true,
+                    "body": "",
+                    "executionCondition": "ONLY_WHEN_PREVIOUS_SUCCEEDED",
+                    "customExecutionCondition": ""
+                },
+                {
+                    "name": "Send2xMatters",
+                    "method": "POST",
+                    "url": "Your HTTP Trigger URL Here",
+                    "headers": [
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+                    "escapeBodyValues": true,
+                    "body": "{\n\"Number\":\"${naam}\",\n\"UNID\":\"${unid}\",\n\"Call Type\":\"${_responses.Call_Retrieval.body.callType.name}\",\n\"Category\":\"${_responses.Call_Retrieval.body.category.name}\",\n\"Subcategory\":\"${_responses.Call_Retrieval.body.subcategory.name}\",\n\"Processing Status\":\"${_responses.Call_Retrieval.body.processingStatus.name}\",\n\"Brief Description\":\"${korteomschrijving}\",\n\"Operator Group\":\"${_responses.Call_Retrieval.body.operatorGroup.name}\",\n\"Operator\":\"${_responses.Call_Retrieval.body.operator.name}\",\n\"Operator Status\":\"${_responses.Call_Retrieval.body.operator.status}\",\n\"Operator ID\":\"${_responses.Call_Retrieval.body.operator.id}\",\n\"TopDesk Domain\":\"${_variables.TOPdesk_Domain}\",\n\"Priority\":\"${_responses.Call_Retrieval.body.priority.name}\"\n}",
+                    "executionCondition": "ONLY_WHEN_PREVIOUS_SUCCEEDED",
+                    "customExecutionCondition": ""
+                }
+            ]
+        }
+    }
+}
